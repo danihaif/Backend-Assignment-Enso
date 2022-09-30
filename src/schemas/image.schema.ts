@@ -11,5 +11,8 @@ export const createImageSchema = object({
       version: string({
         required_error: "version is required",
       }),
-    }),
+      metadata: object({
+        
+      })
+    }).strict(),
   });
