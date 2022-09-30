@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { AnyZodObject } from "zod";
+import {get} from 'lodash'
+import { isAuthenticated } from "../utils/jwt.utils";
 
 const validate =
   (schema: AnyZodObject) =>
@@ -13,6 +15,21 @@ const validate =
       next();
     } catch (e: any) {
       return res.status(400).send(e.errors);
+    }
+  };
+
+  export const autheticate =
+  () =>
+  (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const accessToken = get(req, "headers.authorization").replace(/^Bearer\s/, "");
+        const isAuth = isAuthenticated(accessToken);
+        if (isAuth) next();
+        else {
+            throw new Error("Unauthorized");
+        }
+    } catch (e: any) {
+      return res.status(401).send(e.errors.message);
     }
   };
 

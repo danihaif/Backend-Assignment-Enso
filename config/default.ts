@@ -1,7 +1,7 @@
 export default {
     port: 1337,
     dbUri: "mongodb://localhost:27017/backend-assignment-enso",
-    accessTokenTtl: '-1',
+    accessTokenTtl: '1y',
     publicKey: `-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQClWsbxReF2GGm58905ihK/02HI
 W4W1hde7ovcnkg8aoLzkZdKt8L9g7RKvWLPP+Y9YPXtSYFMVsgOeb5jNp0XwZSeF

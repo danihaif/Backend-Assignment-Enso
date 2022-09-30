@@ -1,8 +1,10 @@
 import {Request, Response, NextFunction} from 'express'
-import logger from '../utils/logger'
 import { createImage } from '../services/image.service';
+import { verifyJwt } from '../utils/jwt.utils';
+import {get} from 'lodash'
 
-export async function createImageHandler (req: Request, res: Response) {
+
+export async function createImageHandler (req: Request, res: Response, next: NextFunction) {
     try {
         const image = await createImage(req.body);
         return res.send(image);

@@ -1,4 +1,3 @@
-import logger from "../utils/logger";
 import ImageModel, { ImageDocumnet} from "../models/image.model";
 
 export async function createImage(input:ImageDocumnet) {
