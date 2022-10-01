@@ -1,10 +1,11 @@
 import connect from './utils/connect';
 import logger from './utils/logger'
 import createServer from './utils/server'
+import config from 'config'
 
 require('dotenv').config();
 
-const port = process.env.PORT;
+const port = config.get<number>("port");
 
 const app = createServer();
 
