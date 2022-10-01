@@ -13,7 +13,7 @@ export async function createImageHandler(req: Request, res: Response, next: Next
 }
 
 export async function getImageHandler(req: Request, res: Response) {
-    const imageId = req.query['_id'] as string;
+    const imageId = req.params['_id'];
     try {
         const image = await getImageById(imageId);
         if (!image) {

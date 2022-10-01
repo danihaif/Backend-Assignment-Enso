@@ -1,29 +1,29 @@
 import supertest from 'supertest'
 import { createImage } from '../image/image.service';
 import createServer from '../utils/server'
-import {MongoMemoryServer} from 'mongodb-memory-server'
-import mongoose, {Error} from 'mongoose'
+import { MongoMemoryServer } from 'mongodb-memory-server'
+import mongoose, { Error } from 'mongoose'
 import * as imageInputs from './image.inputs'
 import { signJwt } from '../utils/jwt.utils';
 import { ImageDocumnet } from '../image/image.model';
 
 const app = createServer();
 
-const jwt = signJwt( {user: "fake"}, {expiresIn: "1y"});
+const jwt = signJwt({ user: "fake" }, { expiresIn: "1y" });
 
 
-describe ('image', () => {
-    beforeAll( async () => {
+describe('image', () => {
+    beforeAll(async () => {
         const mongoServer = await MongoMemoryServer.create();
         await mongoose.connect(mongoServer.getUri());
     });
-    afterAll( async () => {
+    afterAll(async () => {
         await mongoose.disconnect();
         await mongoose.connection.close();
     });
-    beforeEach( async () => {
+    beforeEach(async () => {
         const collections = mongoose.connection.collections;
-        for (const key in collections){
+        for (const key in collections) {
             const collection = collections[key]
             // @ts-ignore
             await collection.deleteMany();
@@ -32,16 +32,18 @@ describe ('image', () => {
 
 
     describe("get image route", () => {
-        describe ("given the image does not exist", ()=> {
+        describe("given the image does not exist", () => {
             it("should return a 404", async () => {
                 const dummyImageId = "123"
-                await supertest(app).get(`/api/image/${dummyImageId}`).expect(404);
+                await supertest(app).get(`/api/image/${dummyImageId}`).set(
+                    "Authorization", `Bearer ${jwt}`).expect(404);
             })
         })
-        describe ("given the image does exist", ()=> {
+        describe("given the image does exist", () => {
             it("should return a 200 and the image", async () => {
                 const image = await createImage(imageInputs.imagePayload);
-                const {body, statusCode} = await supertest(app).get(`/api/image/${image._id}`);
+                const { body, statusCode } = await supertest(app).get(`/api/image/${image._id}`).set(
+                    "Authorization", `Bearer ${jwt}`);
                 expect(statusCode).toBe(200);
             })
         })
@@ -50,13 +52,13 @@ describe ('image', () => {
 
 
     describe("create image route", () => {
-        describe("given we are creating the same image twice", ()=> {
-            it ("should return a 401", async () => {
+        describe("given we are creating the same image twice", () => {
+            it("should return a 401", async () => {
                 await supertest(app).post('/api/image').set(
                     "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload);
-                const {statusCode, body} = await supertest(app).post('/api/image').set(
-                        "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload);
-                expect(statusCode).toBe(403)    
+                const { statusCode, body } = await supertest(app).post('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload);
+                expect(statusCode).toBe(403)
             })
         })
 
