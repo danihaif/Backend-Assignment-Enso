@@ -3,11 +3,8 @@ import config from 'config'
 import connect from './utils/connect';
 import logger from './utils/logger'
 import routes from './routes';
-
-
-
-//const port = config.get<string>('port');
 require('dotenv').config();
+
 const port = process.env.PORT;
 
 const app = express();

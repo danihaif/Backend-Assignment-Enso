@@ -29,7 +29,7 @@ const validate =
             throw new Error("Unauthorized");
         }
     } catch (e: any) {
-      return res.status(401).send(e.errors.message);
+      return res.status(401).send(e.message);
     }
   };
 
