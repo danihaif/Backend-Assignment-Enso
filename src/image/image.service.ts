@@ -1,4 +1,4 @@
-import ImageModel, { ImageDocumnet} from "../models/image.model";
+import ImageModel, { ImageDocumnet} from "./image.model";
 
 export async function createImage(input:ImageDocumnet) {
     try {

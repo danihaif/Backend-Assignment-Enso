@@ -1,8 +1,8 @@
 import {Express, Request, Response} from 'express'
-import { getAccessTokenHandler } from './controllers/authentication.controller';
-import { createImageHandler } from './controllers/image.controller';
+import { getAccessTokenHandler } from './auth/authentication.controller';
+import { createImageHandler } from './image/image.controller';
 import validateResource, {autheticate} from './middleware/validateResource';
-import { createImageSchema } from './schemas/image.schema';
+import { createImageSchema } from './image/image.schema';
 
 
 function routes(app: Express) {

@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from 'express'
-import { createImage } from '../services/image.service';
+import { createImage } from './image.service';
 import { verifyJwt } from '../utils/jwt.utils';
 import {get} from 'lodash'
 
