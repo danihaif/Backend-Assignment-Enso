@@ -63,9 +63,9 @@ export async function updateImageHandler(req: Request, res: Response, next: Next
             return res.send(image);
         }
         else {
-            image.metadata = { ...image.metadata, ...req.body.metadata };
-            const updatedImage = await findAndUpdateImage({ _id: image._id }, image, { new: true });
-            return res.send(image);
+            req.body.metadata = { ...image.metadata, ...req.body.metadata };
+            const updatedImage = await findAndUpdateImage({ _id: image._id }, req.body, { new: true });
+            return res.send(updatedImage);
         }
         return res.send(image);
     }
