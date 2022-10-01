@@ -9,7 +9,7 @@ export async function getAccessTokenHandler (req: Request, res: Response) {
         // if username and password are correct
         const userName = "danihaif";
         const password = "31121988";
-        const accessToken = signJwt( {userName, password}, {expiresIn: config.get('accessTokenTtl')} /*15 minutes*/);
+        const accessToken = signJwt( {userName, password}, {expiresIn: config.get('accessTokenTtl')} /*1y*/);
 
         return res.send(accessToken)
     }
