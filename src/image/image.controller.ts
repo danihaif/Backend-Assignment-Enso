@@ -1,17 +1,17 @@
-import {Request, Response, NextFunction} from 'express'
+import { Request, Response, NextFunction } from 'express'
 import { createImage, findAndUpdateImage, getAllImages, getImageById, getImageByName, getImagesCombination } from './image.service';
 import { verifyJwt } from '../utils/jwt.utils';
-import {get} from 'lodash'
+import { get } from 'lodash'
 import logger from '../utils/logger'
 import { send } from 'process';
 
 
-export async function createImageHandler (req: Request, res: Response, next: NextFunction) {
+export async function createImageHandler(req: Request, res: Response, next: NextFunction) {
     try {
         const image = await createImage(req.body);
         return res.send(image);
     }
-    catch(error: any) {
+    catch (error: any) {
         return res.status(403).send(error.message);
     }
 }
@@ -25,7 +25,7 @@ export async function getImageHandler(req: Request, res: Response) {
         }
         return res.send(image);
     }
-    catch(error: any) {
+    catch (error: any) {
         return res.status(404).send(error.message);
     }
 }
@@ -39,27 +39,26 @@ export async function getAllImagesHandler(req: Request, res: Response) {
         const images = await getAllImages(parsedLimit, parsedSkip, sortBy);
         return res.send(images);
     }
-    catch(error: any) {
+    catch (error: any) {
         return res.status(404).send(error.message);
     }
 }
 
 export async function getImagesCombinationsHandler(req: Request, res: Response) {
-    const length = req.query.length ? +req.query.length : null;
-    if (!length) {
-        throw new Error("Must supply length for combination");
-    }
-
     try {
+        const length = req.query.length ? +req.query.length : null;
+        if (!length) {
+            throw new Error("Must supply length for combination");
+        }
         const images = await getImagesCombination(length);
         return res.send(images);
     }
-    catch(error: any) {
+    catch (error: any) {
         return res.status(404).send(error.message);
     }
 }
 
-export async function updateImageHandler (req: Request, res: Response, next: NextFunction) {
+export async function updateImageHandler(req: Request, res: Response, next: NextFunction) {
     try {
         const imageName = req.body['name'];
         const image = await getImageByName(imageName);
@@ -68,13 +67,13 @@ export async function updateImageHandler (req: Request, res: Response, next: Nex
             return res.send(image);
         }
         else {
-            image.metadata = {...image.metadata, ...req.body.metadata};
-            const updatedImage = await findAndUpdateImage({_id: image._id}, image, {new: true});
+            image.metadata = { ...image.metadata, ...req.body.metadata };
+            const updatedImage = await findAndUpdateImage({ _id: image._id }, image, { new: true });
             return res.send(image);
         }
         return res.send(image);
     }
-    catch(error: any) {
+    catch (error: any) {
         return res.status(403).send(error.message);
     }
 }
