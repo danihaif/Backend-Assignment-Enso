@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from 'express'
-import { createImage, findAndUpdateImage, getAllImages, getImageById, getImageByName } from './image.service';
+import { createImage, findAndUpdateImage, getAllImages, getImageById, getImageByName, getImagesCombination } from './image.service';
 import { verifyJwt } from '../utils/jwt.utils';
 import {get} from 'lodash'
 import logger from '../utils/logger'
@@ -37,6 +37,21 @@ export async function getAllImagesHandler(req: Request, res: Response) {
 
     try {
         const images = await getAllImages(parsedLimit, parsedSkip, sortBy);
+        return res.send(images);
+    }
+    catch(error: any) {
+        return res.status(404).send(error.message);
+    }
+}
+
+export async function getImagesCombinationsHandler(req: Request, res: Response) {
+    const length = req.query.length ? +req.query.length : null;
+    if (!length) {
+        throw new Error("Must supply length for combination");
+    }
+
+    try {
+        const images = await getImagesCombination(length);
         return res.send(images);
     }
     catch(error: any) {

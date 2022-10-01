@@ -1,6 +1,7 @@
 import ImageModel, { ImageDocumnet} from "./image.model";
 import mongoos, {ObjectId, DocumentDefinition, FilterQuery, UpdateQuery, QueryOptions} from 'mongoose'
 import { number } from "zod";
+import { generateCombinations } from "../utils/generate.combinations";
 
 export async function createImage(input: DocumentDefinition<Omit<ImageDocumnet, "createdAt" | "updatedAt">>) {
     try {
@@ -48,6 +49,17 @@ export async function getAllImages(limit: number = Infinity, skip: number = 0, s
                  return await ImageModel.find().sort({createdAt: 'desc'}).limit(limit).skip(skip);
             }
         }
+    }
+    catch (error: any) {
+        throw new Error(error.message);
+    }
+}
+
+export async function getImagesCombination(length: number) {
+    try {     
+        const images = await ImageModel.find();
+        const combinations = generateCombinations<ImageDocumnet>(images, length)
+        return combinations;
     }
     catch (error: any) {
         throw new Error(error.message);
