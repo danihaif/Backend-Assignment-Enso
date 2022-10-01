@@ -1,5 +1,6 @@
 import ImageModel, { ImageDocumnet} from "./image.model";
 import mongoos, {ObjectId, DocumentDefinition, FilterQuery, UpdateQuery, QueryOptions} from 'mongoose'
+import { number } from "zod";
 
 export async function createImage(input: DocumentDefinition<Omit<ImageDocumnet, "createdAt" | "updatedAt">>) {
     try {
@@ -26,6 +27,27 @@ export async function getImageByName(name: string) {
         const query = {name: name};
         const image = await ImageModel.findOne(query);
         return image;
+    }
+    catch (error: any) {
+        throw new Error(error.message);
+    }
+}
+
+export async function getAllImages(limit: number = Infinity, skip: number = 0, sortBy: string = "createdAt") {
+    try {     
+        if (sortBy != "createdAt" && sortBy != "updatedAt") {
+            throw new Error("can filter only by createdAt and updatedAt");
+        }
+
+        else {
+            const sortByUpdatedAt = sortBy === "updatedAt";
+            if (sortByUpdatedAt) {
+                return await ImageModel.find().sort({updatedAt: 'desc'}).limit(limit).skip(skip);
+            }
+            else {
+                 return await ImageModel.find().sort({createdAt: 'desc'}).limit(limit).skip(skip);
+            }
+        }
     }
     catch (error: any) {
         throw new Error(error.message);

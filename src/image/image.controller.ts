@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from 'express'
-import { createImage, findAndUpdateImage, getImageById, getImageByName } from './image.service';
+import { createImage, findAndUpdateImage, getAllImages, getImageById, getImageByName } from './image.service';
 import { verifyJwt } from '../utils/jwt.utils';
 import {get} from 'lodash'
 import logger from '../utils/logger'
@@ -17,13 +17,27 @@ export async function createImageHandler (req: Request, res: Response, next: Nex
 }
 
 export async function getImageHandler(req: Request, res: Response) {
-    const imageId = req.params._id;
+    const imageId = req.query['_id'] as string;
     try {
-        const image = await getImageById(req.params._id);
+        const image = await getImageById(imageId);
         if (!image) {
             throw new Error("Image ID not found")
         }
         return res.send(image);
+    }
+    catch(error: any) {
+        return res.status(404).send(error.message);
+    }
+}
+
+export async function getAllImagesHandler(req: Request, res: Response) {
+    let parsedLimit = req.query.limit ? +req.query.limit : undefined;
+    let parsedSkip = req.query.skip ? +req.query.skip : undefined;
+    let sortBy = req.query.filterBy ? `${req.query.filterBy}` : "";
+
+    try {
+        const images = await getAllImages(parsedLimit, parsedSkip, sortBy);
+        return res.send(images);
     }
     catch(error: any) {
         return res.status(404).send(error.message);

@@ -1,6 +1,6 @@
 import {Express, Request, Response} from 'express'
 import { getAccessTokenHandler } from './auth/authentication.controller';
-import { createImageHandler, getImageHandler, updateImageHandler } from './image/image.controller';
+import { createImageHandler, getAllImagesHandler, getImageHandler, updateImageHandler } from './image/image.controller';
 import validateResource from './middleware/validateResource';
 import {authenticate}  from './middleware/authenticate';
 import { createImageSchema } from './image/image.schema';
@@ -24,9 +24,12 @@ function routes(app: Express) {
 
      app.post("/api/image", [authenticate(), validateResource(createImageSchema)], createImageHandler);
 
-     app.put("/api/image/", [authenticate(), validateResource(createImageSchema)], updateImageHandler);
+     app.put("/api/image", [authenticate(), validateResource(createImageSchema)], updateImageHandler);
 
-     app.get("/api/image/:_id", getImageHandler);
+     app.get("/api/image/:_id", authenticate(), getImageHandler);
+
+     app.get("/api/images/", authenticate(), getAllImagesHandler);
+
      
 }
 
