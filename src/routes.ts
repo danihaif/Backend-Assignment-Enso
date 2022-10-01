@@ -1,11 +1,13 @@
 import { Express, Request, Response } from 'express'
 import { getAccessTokenHandler } from './auth/authentication.controller';
 import { createImageHandler, getAllImagesHandler, getImageHandler, getImagesCombinationsHandler, updateImageHandler } from './image/image.controller';
-import validateResource from './middleware/validateResource';
 import { authenticate } from './middleware/authenticate';
 import { createImageSchema } from './image/image.schema';
 import { createDeploymentHandler, getAllDeploymentsHandler, getDeploymentsCountHandler } from './deployment/deployment.controller';
 import { createDeploymentSchema } from './deployment/deployment.schema';
+import { appRoutes } from './routes/auth.routes';
+import { imageRoutes } from './routes/image.routes';
+import { deploymentRoutes } from './routes/deployment.routes';
 
 
 function routes(app: Express) {
@@ -22,25 +24,11 @@ function routes(app: Express) {
      */
     app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
 
-    app.post("/api/get-access-token", getAccessTokenHandler);
+    appRoutes(app);
 
-    app.post("/api/image", [authenticate(), validateResource(createImageSchema)], createImageHandler);
+    imageRoutes(app);
 
-    app.put("/api/image", [authenticate(), validateResource(createImageSchema)], updateImageHandler);
-
-    app.get("/api/image/:_id", authenticate(), getImageHandler);
-
-    app.get("/api/images/", authenticate(), getAllImagesHandler);
-
-    app.get("/api/images/combination/", authenticate(), getImagesCombinationsHandler);
-
-    app.post("/api/deployment/", [authenticate(), validateResource(createDeploymentSchema)], createDeploymentHandler)
-
-    app.get("/api/deployment/", authenticate(), getAllDeploymentsHandler)
-
-    app.get("/api/deployment-count/", authenticate(), getDeploymentsCountHandler)
-
-
+    deploymentRoutes(app);
 }
 
 export default routes;
