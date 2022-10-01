@@ -1,9 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
 import { createImage, findAndUpdateImage, getAllImages, getImageById, getImageByName, getImagesCombination } from './image.service';
-import { verifyJwt } from '../utils/jwt.utils';
-import { get } from 'lodash'
-import logger from '../utils/logger'
-import { send } from 'process';
 
 
 export async function createImageHandler(req: Request, res: Response, next: NextFunction) {
