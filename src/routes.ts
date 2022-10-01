@@ -4,7 +4,7 @@ import { createImageHandler, getAllImagesHandler, getImageHandler, getImagesComb
 import validateResource from './middleware/validateResource';
 import { authenticate } from './middleware/authenticate';
 import { createImageSchema } from './image/image.schema';
-import { createDeploymentHandler, getAllDeploymentsHandler } from './deployment/deployment.controller';
+import { createDeploymentHandler, getAllDeploymentsHandler, getDeploymentsCountHandler } from './deployment/deployment.controller';
 import { createDeploymentSchema } from './deployment/deployment.schema';
 
 
@@ -37,6 +37,9 @@ function routes(app: Express) {
     app.post("/api/deployment/", [authenticate(), validateResource(createDeploymentSchema)], createDeploymentHandler)
 
     app.get("/api/deployment/", authenticate(), getAllDeploymentsHandler)
+
+    app.get("/api/deployment-count/", authenticate(), getDeploymentsCountHandler)
+
 
 }
 

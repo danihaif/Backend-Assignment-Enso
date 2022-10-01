@@ -1,5 +1,5 @@
-import ImageModel, { ImageDocumnet} from "./image.model";
-import mongoos, {ObjectId, DocumentDefinition, FilterQuery, UpdateQuery, QueryOptions} from 'mongoose'
+import ImageModel, { ImageDocumnet } from "./image.model";
+import mongoos, { ObjectId, DocumentDefinition, FilterQuery, UpdateQuery, QueryOptions } from 'mongoose'
 import { number } from "zod";
 import { generateCombinations } from "../utils/generate.combinations";
 
@@ -7,14 +7,14 @@ export async function createImage(input: DocumentDefinition<Omit<ImageDocumnet, 
     try {
         const image = await ImageModel.create(input);
         return image.toJSON();
-    } catch(error: any) {
+    } catch (error: any) {
         throw new Error(error);
     }
 }
 
 export async function getImageById(id: string) {
     try {
-        const query = {_id: new mongoos.Types.ObjectId(id)};
+        const query = { _id: new mongoos.Types.ObjectId(id) };
         const image = await ImageModel.findOne(query);
         return image;
     }
@@ -25,7 +25,7 @@ export async function getImageById(id: string) {
 
 export async function getImageByName(name: string) {
     try {
-        const query = {name: name};
+        const query = { name: name };
         const image = await ImageModel.findOne(query);
         return image;
     }
@@ -35,7 +35,7 @@ export async function getImageByName(name: string) {
 }
 
 export async function getAllImages(limit: number = Infinity, skip: number = 0, sortBy: string = "createdAt") {
-    try {     
+    try {
         if (sortBy != "createdAt" && sortBy != "updatedAt") {
             throw new Error("can filter only by createdAt and updatedAt");
         }
@@ -43,10 +43,10 @@ export async function getAllImages(limit: number = Infinity, skip: number = 0, s
         else {
             const sortByUpdatedAt = sortBy === "updatedAt";
             if (sortByUpdatedAt) {
-                return await ImageModel.find().sort({updatedAt: 'desc'}).limit(limit).skip(skip);
+                return await ImageModel.find().sort({ updatedAt: 'desc' }).limit(limit).skip(skip);
             }
             else {
-                 return await ImageModel.find().sort({createdAt: 'desc'}).limit(limit).skip(skip);
+                return await ImageModel.find().sort({ createdAt: 'desc' }).limit(limit).skip(skip);
             }
         }
     }
@@ -56,7 +56,7 @@ export async function getAllImages(limit: number = Infinity, skip: number = 0, s
 }
 
 export async function getImagesCombination(length: number) {
-    try {     
+    try {
         const images = await ImageModel.find();
         const combinations = generateCombinations<ImageDocumnet>(images, length)
         return combinations;
@@ -70,6 +70,6 @@ export async function findAndUpdateImage(
     query: FilterQuery<ImageDocumnet>,
     update: UpdateQuery<ImageDocumnet>,
     options: QueryOptions
-  ) {
+) {
     return ImageModel.findOneAndUpdate(query, update, options);
-  }
+}

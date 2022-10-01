@@ -23,4 +23,5 @@ kASPe+3MvPT+EyotxO0o8UmvMVDQq/RgY0nLHdGxbS3oQEvyfxI53VkmRdCigL51
 JVEtz6bAsOphsdZrnXECQHgxSQvje+l5hhmLvXldwWRnlBqMuZwbywVotghLz5gF
 W9s8Cma8xI9F0sim9Vw8hHr7ApWyD4lnEDaZ6aFfMlI=
 -----END RSA PRIVATE KEY-----`,
+    pathToCount: "./count.txt"
 }
