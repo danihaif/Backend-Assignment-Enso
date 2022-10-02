@@ -38,7 +38,7 @@ export function imageRoutes(app: Express) {
 
     app.get("/api/image/:_id", authenticate(), getImageHandler);
 
-    app.get("/api/images/", authenticate(), getAllImagesHandler);
+    app.get("/api/images", authenticate(), getAllImagesHandler);
 
     app.get("/api/images/combination", authenticate(), getImagesCombinationsHandler);
 
