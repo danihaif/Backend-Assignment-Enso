@@ -157,25 +157,22 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{endpoint}}/api/images/?filterBy=updatedAt",
+							"raw": "{{endpoint}}/api/images?limit=5&skip=2&filterBy=updatedAt",
 							"host": [
 								"{{endpoint}}"
 							],
 							"path": [
 								"api",
-								"images",
-								""
+								"images"
 							],
 							"query": [
 								{
 									"key": "limit",
-									"value": "5",
-									"disabled": true
+									"value": "5"
 								},
 								{
 									"key": "skip",
-									"value": "2",
-									"disabled": true
+									"value": "2"
 								},
 								{
 									"key": "filterBy",
