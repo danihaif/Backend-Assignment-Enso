@@ -8,6 +8,10 @@ export async function createImageHandler(req: Request, res: Response, next: Next
         return res.send(image);
     }
     catch (error: any) {
+        const error_msg: string = error.message;
+        if (error_msg.includes('11000')) {
+            return res.status(403).send("Image name already exist");
+        }
         return res.status(403).send(error.message);
     }
 }
