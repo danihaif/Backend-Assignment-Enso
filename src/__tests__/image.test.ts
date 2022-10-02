@@ -30,27 +30,6 @@ describe('image', () => {
         }
     });
 
-
-    describe("get image route", () => {
-        describe("given the image does not exist", () => {
-            it("should return a 404", async () => {
-                const dummyImageId = "123"
-                await supertest(app).get(`/api/image/${dummyImageId}`).set(
-                    "Authorization", `Bearer ${jwt}`).expect(404);
-            })
-        })
-        describe("given the image does exist", () => {
-            it("should return a 200 and the image", async () => {
-                const image = await createImage(imageInputs.imagePayload);
-                const { body, statusCode } = await supertest(app).get(`/api/image/${image._id}`).set(
-                    "Authorization", `Bearer ${jwt}`);
-                expect(statusCode).toBe(200);
-            })
-        })
-    })
-
-
-
     describe("create image route", () => {
         describe("given we are creating the same image twice", () => {
             it("should return a 401", async () => {
@@ -81,10 +60,10 @@ describe('image', () => {
 
         describe("given we are creating a valid image", () => {
             it("should return a return a 200 and db should contain that image", async () => {
-                let response = await supertest(app).post('/api/image').set(
+                const { statusCode, body } = await supertest(app).post('/api/image').set(
                     "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload);
-                expect(response.statusCode).toBe(200);
-                const image = response.body as ImageDocumnet;
+                expect(statusCode).toBe(200);
+                const image = body as ImageDocumnet;
                 expect(image.name).toBe(imageInputs.imagePayload.name);
                 expect(image.repository).toBe(imageInputs.imagePayload.repository);
                 expect(image.version).toBe(imageInputs.imagePayload.version);
@@ -94,5 +73,79 @@ describe('image', () => {
                 expect(image._id).toStrictEqual(expect.any(String));
             })
         })
+    })
+
+    describe("get image route", () => {
+        describe("given the image does not exist", () => {
+            it("should return a 404", async () => {
+                const dummyImageId = "123"
+                await supertest(app).get(`/api/image/${dummyImageId}`).set(
+                    "Authorization", `Bearer ${jwt}`).expect(404);
+            })
+        })
+        describe("given the image does exist", () => {
+            it("should return a 200 and the image", async () => {
+                const image = await createImage(imageInputs.imagePayload);
+                const { body, statusCode } = await supertest(app).get(`/api/image/${image._id}`).set(
+                    "Authorization", `Bearer ${jwt}`);
+                expect(statusCode).toBe(200);
+            })
+        })
+    })
+
+    describe("update image route", () => {
+        describe("given the image already exists", () => {
+            it("should return 200, update the image and merge the metadata", async () => {
+                await supertest(app).post('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload);
+                const { statusCode, body } = await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.updateImagePayload);
+                expect(body.version).toBe("1.0.1");
+                expect(body.metadata).toEqual({
+                    m1: "m1",
+                    m2: "m2",
+                    m3: "m3",
+                    m4: "m4"
+                })
+                expect(statusCode).toBe(200);
+            })
+        })
+
+        describe("given the image does not exist", () => {
+            it("should return 200 and create the image", async () => {
+                const { statusCode, body } = await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload);
+                expect(statusCode).toBe(200);
+                const image = body as ImageDocumnet;
+                expect(image.name).toBe(imageInputs.imagePayload.name);
+                expect(image.repository).toBe(imageInputs.imagePayload.repository);
+                expect(image.version).toBe(imageInputs.imagePayload.version);
+                expect(image.metadata).toEqual(imageInputs.imagePayload.metadata);
+                expect(image.createdAt).toStrictEqual(expect.any(String));
+                expect(image.updatedAt).toStrictEqual(expect.any(String));
+                expect(image._id).toStrictEqual(expect.any(String));
+            })
+        })
+
+        describe("given one or more fields are missing from image object", () => {
+            it("should return a 400", async () => {
+                let response = await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayloadNoName);
+                expect(response.statusCode).toBe(400)
+                response = await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayloadNoRepository);
+                expect(response.statusCode).toBe(400)
+                response = await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayloadNoVersion);
+                expect(response.statusCode).toBe(400)
+                response = await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayloadInvalidField);
+                expect(response.statusCode).toBe(400)
+            })
+        })
+    })
+
+    describe("delete image route", () => {
+
     })
 })

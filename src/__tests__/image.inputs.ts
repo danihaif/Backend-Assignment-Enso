@@ -8,6 +8,16 @@ export const imagePayload = {
     }
 }
 
+export const updateImagePayload = {
+    name: "image1",
+    repository: "repository2",
+    version: "1.0.1",
+    metadata: {
+        "m3": "m3",
+        "m4": "m4",
+    }
+}
+
 export const imagePayloadNoName = {
     repository: "repository1",
     version: "1.0.0",
