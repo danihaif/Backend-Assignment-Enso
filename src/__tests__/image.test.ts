@@ -16,6 +16,7 @@ describe('image', () => {
     beforeAll(async () => {
         const mongoServer = await MongoMemoryServer.create();
         await mongoose.connect(mongoServer.getUri());
+        jest.setTimeout(30000);
     });
     afterAll(async () => {
         await mongoose.disconnect();
@@ -145,7 +146,55 @@ describe('image', () => {
         })
     })
 
-    describe("delete image route", () => {
+    describe("get image combinations route", () => {
+        describe("given we combination length is bigger than the amount of images", () => {
+            it("should return an empty collection", async () => {
+                await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload);
+                await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload2);
+                await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload3);
+                let resspone = await supertest(app).get('/api/images/combination').query({ length: 4 }).set(
+                    "Authorization", `Bearer ${jwt}`);
+                expect(resspone.body.length).toBe(0);
+            })
+        })
+
+        describe("given we have n=6 images in the collection and we get combinations in lengths k=1-6", () => {
+            it("should return n choose k (nCr) combinations", async () => {
+                await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload);
+                await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload2);
+                await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload3);
+                await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload4);
+                await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload5);
+                await supertest(app).put('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload6);
+                let resspone = await supertest(app).get('/api/images/combination').query({ length: 1 }).set(
+                    "Authorization", `Bearer ${jwt}`);
+                expect(resspone.body.length).toBe(6);
+                resspone = await supertest(app).get('/api/images/combination').query({ length: 2 }).set(
+                    "Authorization", `Bearer ${jwt}`);
+                expect(resspone.body.length).toBe(15);
+                resspone = await supertest(app).get('/api/images/combination').query({ length: 3 }).set(
+                    "Authorization", `Bearer ${jwt}`);
+                expect(resspone.body.length).toBe(20);
+                resspone = await supertest(app).get('/api/images/combination').query({ length: 4 }).set(
+                    "Authorization", `Bearer ${jwt}`);
+                expect(resspone.body.length).toBe(15);
+                resspone = await supertest(app).get('/api/images/combination').query({ length: 5 }).set(
+                    "Authorization", `Bearer ${jwt}`);
+                expect(resspone.body.length).toBe(6);
+                resspone = await supertest(app).get('/api/images/combination').query({ length: 6 }).set(
+                    "Authorization", `Bearer ${jwt}`);
+                expect(resspone.body.length).toBe(1);
+            })
+        })
 
     })
 })

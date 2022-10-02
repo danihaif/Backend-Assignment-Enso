@@ -16,6 +16,6 @@ export function imageRoutes(app: Express) {
 
     app.get("/api/images/", authenticate(), getAllImagesHandler);
 
-    app.get("/api/images/combination/", authenticate(), getImagesCombinationsHandler);
+    app.get("/api/images/combination", authenticate(), getImagesCombinationsHandler);
 
 }
