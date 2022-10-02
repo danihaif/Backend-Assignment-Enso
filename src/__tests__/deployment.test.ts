@@ -5,6 +5,7 @@ import mongoose, { Error } from 'mongoose'
 import { signJwt } from '../utils/jwt.utils';
 import * as deploymentInputs from './deployment.inputs'
 import * as imageInputs from './image.inputs'
+import { resetDeploymentsCount } from '../deployment/deployment.service';
 
 
 
@@ -29,6 +30,7 @@ describe('deployment', () => {
             // @ts-ignore
             await collection.deleteMany();
         }
+        resetDeploymentsCount();
     });
 
     describe("create deployment route", () => {
@@ -53,6 +55,32 @@ describe('deployment', () => {
                     "Authorization", `Bearer ${jwt}`).send(validDeploymentPayload);
                 expect(statusCode).toBe(200);
                 expect(body.imageId).toBe(imageId);
+            })
+        })
+    })
+
+    describe("get deployments count route", () => {
+        describe("given we create an image and create 2 deployments", () => {
+            it("deplyoments count should be incremented by 2", async () => {
+
+                let response = await supertest(app).get('/api/deployment-count/').set(
+                    "Authorization", `Bearer ${jwt}`);
+                const firstCount = +response.body['deploymentCount'];
+
+                response = await supertest(app).post('/api/image').set(
+                    "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload);
+                const imageId = response.body._id;
+                const validDeploymentPayload = {
+                    imageId: imageId
+                }
+                await supertest(app).post('/api/deployment').set(
+                    "Authorization", `Bearer ${jwt}`).send(validDeploymentPayload);
+                await supertest(app).post('/api/deployment').set(
+                    "Authorization", `Bearer ${jwt}`).send(validDeploymentPayload);
+                response = await supertest(app).get('/api/deployment-count/').set(
+                    "Authorization", `Bearer ${jwt}`);
+                const secondCount = +response.body['deploymentCount'];
+                expect(secondCount).toEqual(+firstCount + 2);
             })
         })
     })

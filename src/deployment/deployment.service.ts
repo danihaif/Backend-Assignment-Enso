@@ -3,6 +3,7 @@ import mongoos, { ObjectId, DocumentDefinition, FilterQuery, UpdateQuery, QueryO
 import { getImageById } from "../image/image.service";
 import * as fs from "fs";
 import config from 'config'
+import logger from "../utils/logger";
 
 
 export async function createDeployment(input: DocumentDefinition<Omit<DeploymentDocumnet, "createdAt" | "updatedAt">>) {
@@ -28,16 +29,13 @@ export async function getAllDeployments(limit: number = Infinity, skip: number =
     }
 }
 
-async function updateCount() {
+function updateCount() {
     const path = config.get<string>("pathToCount");
     try {
-        fs.readFile(path, "utf8", (err, data) => {
-            let numOfDeployments = +data;
-            numOfDeployments++;
-            fs.writeFile(path, String(numOfDeployments), 'utf8', (err) => {
-                console.log(err)
-            })
-        })
+        let data = fs.readFileSync(path, "utf8");
+        let numOfDeployments = +data;
+        numOfDeployments++;
+        fs.writeFileSync(path, String(numOfDeployments), 'utf8')
     } catch (error: any) {
         console.log(error.message)
     }
@@ -46,4 +44,13 @@ async function updateCount() {
 export function getDeploymentsCount() {
     const path = config.get<string>("pathToCount");
     return fs.readFileSync(path, "utf8")
+}
+
+export function resetDeploymentsCount() {
+    const path = config.get<string>("pathToCount");
+    try {
+        fs.writeFileSync(path, String(0), 'utf8')
+    } catch (error: any) {
+        console.log(error.message)
+    }
 }

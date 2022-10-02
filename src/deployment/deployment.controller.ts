@@ -23,10 +23,10 @@ export async function getAllDeploymentsHandler(req: Request, res: Response, next
     }
 }
 
-export async function getDeploymentsCountHandler(req: Request, res: Response, next: NextFunction) {
+export function getDeploymentsCountHandler(req: Request, res: Response, next: NextFunction) {
     try {
         const deploymentCount = getDeploymentsCount();
-        return res.send(deploymentCount);
+        return res.send({ deploymentCount });
     }
     catch (error: any) {
         return res.status(403).send(error.message);
