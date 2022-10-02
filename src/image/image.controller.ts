@@ -33,7 +33,7 @@ export async function getImageHandler(req: Request, res: Response) {
 export async function getAllImagesHandler(req: Request, res: Response) {
     let parsedLimit = req.query.limit ? +req.query.limit : undefined;
     let parsedSkip = req.query.skip ? +req.query.skip : undefined;
-    let sortBy = req.query.filterBy ? `${req.query.filterBy}` : "";
+    let sortBy = req.query.filterBy ? `${req.query.filterBy}` : "createdAt";
 
     try {
         const images = await getAllImages(parsedLimit, parsedSkip, sortBy);
