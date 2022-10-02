@@ -1,0 +1,393 @@
+{
+	"info": {
+		"_postman_id": "459d3d05-9d61-4fcb-aeec-a7bffc2c4b51",
+		"name": "Backend-Assignment-Enso",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23557308"
+	},
+	"item": [
+		{
+			"name": "Healthcheck",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/healthcheck",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"healthcheck"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Image",
+			"item": [
+				{
+					"name": "Create Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"image12\",\n    \"repository\": \"repository1\",\n    \"version\": \"1.0.0\",\n    \"metadata\": {\n        \"m1\": \"m1\",\n        \"m2\": \"m2\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/image",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/api/image/6337e9d032c6bae540a71ba6",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"6337e9d032c6bae540a71ba6"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "6337e9d032c6bae540a71ba6",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"image9\",\n    \"repository\": \"repository1\",\n    \"version\": \"1.0.0\",\n    \"metadata\": {\n        \"m4\": \"m4\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/image",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Images",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/api/images/?limit=5&skip=2&filterBy=updatedAt",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"images",
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "skip",
+									"value": "2"
+								},
+								{
+									"key": "filterBy",
+									"value": "updatedAt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Combination",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/api/images/combination?length=2",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"images",
+								"combination"
+							],
+							"query": [
+								{
+									"key": "length",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authenticate",
+			"item": [
+				{
+					"name": "GetAccessToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\" : \"fake-user\",\n    \"password\": \"fake-password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/get-access-token",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"get-access-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deployment",
+			"item": [
+				{
+					"name": "Create Deployment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"imageId\": \"6338484775106feb6cda4642\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/deployment",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"deployment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Deployments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/api/deployment?limit=3&skip=1",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"deployment"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "3"
+								},
+								{
+									"key": "skip",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deployments Count",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/api/deployment-count/",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"deployment-count",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "endpoint",
+			"value": "http://localhost:1337",
+			"type": "string"
+		}
+	]
+}
