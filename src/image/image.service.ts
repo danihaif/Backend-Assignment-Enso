@@ -1,6 +1,5 @@
 import ImageModel, { ImageDocumnet } from "./image.model";
 import mongoos, { ObjectId, DocumentDefinition, FilterQuery, UpdateQuery, QueryOptions } from 'mongoose'
-import { number } from "zod";
 import { generateCombinations } from "../utils/generate.combinations";
 
 export async function createImage(input: DocumentDefinition<Omit<ImageDocumnet, "createdAt" | "updatedAt">>) {

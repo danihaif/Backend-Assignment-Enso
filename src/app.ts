@@ -15,5 +15,4 @@ swaggerDocs(app, port);
 app.listen(port, async () => {
     await connect();
     logger.info(`Listening on port ${port}`);
-    console.log("connected");
 })

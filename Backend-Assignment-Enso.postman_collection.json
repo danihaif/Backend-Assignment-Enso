@@ -39,7 +39,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -48,7 +48,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"image12\",\n    \"repository\": \"repository1\",\n    \"version\": \"1.0.0\",\n    \"metadata\": {\n        \"m1\": \"m1\",\n        \"m2\": \"m2\"\n    }\n}",
+							"raw": "{\n    \"name\": \"image2\",\n    \"repository\": \"repository2\",\n    \"version\": \"1.0.0\",\n    \"metadata\": {\n        \"m1\": \"m1\",\n        \"m2\": \"m2\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -76,7 +76,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -112,7 +112,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -121,7 +121,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"image9\",\n    \"repository\": \"repository1\",\n    \"version\": \"1.0.0\",\n    \"metadata\": {\n        \"m4\": \"m4\"\n    }\n}",
+							"raw": "{\n    \"name\": \"image9999\",\n    \"repository\": \"repository4\",\n    \"version\": \"1.0.2\",\n    \"metadata\": {\n        \"m4\": \"m6\",\n        \"dasd\": 3\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -149,7 +149,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -157,7 +157,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{endpoint}}/api/images/?limit=5&skip=2&filterBy=updatedAt",
+							"raw": "{{endpoint}}/api/images/?filterBy=updatedAt",
 							"host": [
 								"{{endpoint}}"
 							],
@@ -169,11 +169,13 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "5"
+									"value": "5",
+									"disabled": true
 								},
 								{
 									"key": "skip",
-									"value": "2"
+									"value": "2",
+									"disabled": true
 								},
 								{
 									"key": "filterBy",
@@ -192,7 +194,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -264,7 +266,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -273,7 +275,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"imageId\": \"6338484775106feb6cda4642\"\n}",
+							"raw": "{\n    \"imageId\": \"6339986816dc7cfdc147ce50\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -295,21 +297,28 @@
 				},
 				{
 					"name": "Get All Deployments",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"value": "",
 									"type": "string"
 								}
 							]
 						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{endpoint}}/api/deployment?limit=3&skip=1",
+							"raw": "{{endpoint}}/api/deployment",
 							"host": [
 								"{{endpoint}}"
 							],
@@ -320,11 +329,13 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "3"
+									"value": "3",
+									"disabled": true
 								},
 								{
 									"key": "skip",
-									"value": "1"
+									"value": "1",
+									"disabled": true
 								}
 							]
 						}
@@ -339,7 +350,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhbmloYWlmIiwicGFzc3dvcmQiOiIzMTEyMTk4OCIsImlhdCI6MTY2NDU2MTQwMSwiZXhwIjoxNjk2MTE5MDAxfQ.Ax238FceIwE_yT3CnHf3Jryc_MmpmnUSWb5qH7yfg3tE-c1wvGcjFlcGETnc51ExNWjTPlMBRZNHyuOW459ARYQmzWrKX-AMZ-DbesK-27ysRHUt7fq1toIx-MyLYmGDz9ROTwDhnk_P5HDBrMU8y-Zn69l_UkUIA38M2qsqZfY",
+									"value": "",
 									"type": "string"
 								}
 							]
