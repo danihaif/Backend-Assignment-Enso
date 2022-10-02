@@ -163,6 +163,9 @@ describe('image', () => {
 
         describe("given we have n=6 images in the collection and we get combinations in lengths k=1-6", () => {
             it("should return n choose k (nCr) combinations", async () => {
+
+                // Duplicate code --> sorry :(
+                // TODO: add all inputs to array and iterate
                 await supertest(app).put('/api/image').set(
                     "Authorization", `Bearer ${jwt}`).send(imageInputs.imagePayload);
                 await supertest(app).put('/api/image').set(
