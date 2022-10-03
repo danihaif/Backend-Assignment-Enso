@@ -45,7 +45,7 @@ async function updateCount() {
             fs.writeFileSync(path, String(numOfDeployments), 'utf8');
         }
         else {
-            logger.error(error.message);
+            logger.error(error.message)
         }
     }
 }
