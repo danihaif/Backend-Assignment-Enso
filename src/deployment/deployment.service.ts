@@ -29,7 +29,7 @@ export async function getAllDeployments(limit: number = Infinity, skip: number =
     }
 }
 
-function updateCount() {
+async function updateCount() {
     const path = config.get<string>("pathToCount");
     try {
         let data = fs.readFileSync(path, "utf8");
@@ -37,7 +37,16 @@ function updateCount() {
         numOfDeployments++;
         fs.writeFileSync(path, String(numOfDeployments), 'utf8')
     } catch (error: any) {
-        console.log(error.message)
+        if (error['errno'] === -2) {
+            logger.error(error.message);
+            logger.info("Fetching number of deployments and creating count.txt");
+            const deployments = await getAllDeployments();
+            const numOfDeployments = deployments.length;
+            fs.writeFileSync(path, String(numOfDeployments), 'utf8');
+        }
+        else {
+            logger.error(error.message);
+        }
     }
 }
 
