@@ -10,3 +10,9 @@ See .env.template
 
 ## Run with postman
 The preffered way to test this API is with Postman. I added a postman collection to the repository.
+
+## To run the server
+yarn dev
+
+## To test the server
+yarn test
