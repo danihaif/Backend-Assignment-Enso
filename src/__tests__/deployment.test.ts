@@ -6,12 +6,17 @@ import { signJwt } from '../utils/jwt.utils';
 import * as deploymentInputs from './deployment.inputs'
 import * as imageInputs from './image.inputs'
 import { resetDeploymentsCount } from '../deployment/deployment.service';
+import * as fs from "fs";
+import config from 'config'
 
 
 
 const app = createServer();
 
 const jwt = signJwt({ user: "fake" }, { expiresIn: "1y" });
+
+const countPath = config.get<string>("pathToCount");
+
 
 describe('deployment', () => {
     beforeAll(async () => {
@@ -22,6 +27,7 @@ describe('deployment', () => {
     afterAll(async () => {
         await mongoose.disconnect();
         await mongoose.connection.close();
+        fs.unlinkSync(countPath);
     });
     beforeEach(async () => {
         const collections = mongoose.connection.collections;
