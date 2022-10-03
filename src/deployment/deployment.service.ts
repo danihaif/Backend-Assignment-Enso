@@ -1,5 +1,5 @@
 import DeploymentModel, { DeploymentDocumnet } from "./deployment.model";
-import mongoos, { ObjectId, DocumentDefinition, FilterQuery, UpdateQuery, QueryOptions } from 'mongoose'
+import { DocumentDefinition } from 'mongoose'
 import { getImageById } from "../image/image.service";
 import * as fs from "fs";
 import config from 'config'
