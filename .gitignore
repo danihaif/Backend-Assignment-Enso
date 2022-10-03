@@ -3,4 +3,3 @@ node_modules
 .vscode/launch.json
 
 yarn-error.log
-count.txt
