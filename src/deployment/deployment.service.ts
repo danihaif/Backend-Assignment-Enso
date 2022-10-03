@@ -5,6 +5,7 @@ import * as fs from "fs";
 import config from 'config'
 import logger from "../utils/logger";
 
+const path = config.get<string>("pathToCount");
 
 export async function createDeployment(input: DocumentDefinition<Omit<DeploymentDocumnet, "createdAt" | "updatedAt">>) {
     try {
@@ -30,7 +31,6 @@ export async function getAllDeployments(limit: number = Infinity, skip: number =
 }
 
 async function updateCount() {
-    const path = config.get<string>("pathToCount");
     try {
         let data = fs.readFileSync(path, "utf8");
         let numOfDeployments = +data;
@@ -39,10 +39,7 @@ async function updateCount() {
     } catch (error: any) {
         if (error['errno'] === -2) {
             logger.error(error.message);
-            logger.info("Fetching number of deployments and creating count.txt");
-            const deployments = await getAllDeployments();
-            const numOfDeployments = deployments.length;
-            fs.writeFileSync(path, String(numOfDeployments), 'utf8');
+            await generateCount();
         }
         else {
             logger.error(error.message)
@@ -50,13 +47,29 @@ async function updateCount() {
     }
 }
 
-export function getDeploymentsCount() {
-    const path = config.get<string>("pathToCount");
-    return fs.readFileSync(path, "utf8")
+async function generateCount() {
+    logger.info("Fetching number of deployments and creating count.txt");
+    const deployments = await getAllDeployments();
+    const numOfDeployments = deployments.length;
+    fs.writeFileSync(path, String(numOfDeployments), 'utf8');
+}
+
+export async function getDeploymentsCount() {
+    try {
+        return fs.readFileSync(path, "utf8")
+    } catch (error: any) {
+        if (error['errno'] === -2) {
+            logger.error(error.message);
+            await generateCount();
+            return fs.readFileSync(path, "utf8")
+        }
+        else {
+            logger.error(error.message)
+        }
+    }
 }
 
 export function resetDeploymentsCount() {
-    const path = config.get<string>("pathToCount");
     try {
         fs.writeFileSync(path, String(0), 'utf8')
     } catch (error: any) {

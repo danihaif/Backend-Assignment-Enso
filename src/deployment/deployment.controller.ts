@@ -23,9 +23,9 @@ export async function getAllDeploymentsHandler(req: Request, res: Response, next
     }
 }
 
-export function getDeploymentsCountHandler(req: Request, res: Response, next: NextFunction) {
+export async function getDeploymentsCountHandler(req: Request, res: Response, next: NextFunction) {
     try {
-        const deploymentCount = getDeploymentsCount();
+        const deploymentCount = await getDeploymentsCount();
         return res.send({ deploymentCount });
     }
     catch (error: any) {
